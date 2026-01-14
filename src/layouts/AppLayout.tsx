@@ -1,8 +1,7 @@
-import Header from './components/Header'
-import TabSelector from './components/TabSelector'
-import CharactersView from './components/views/CharactersView'
+import { Outlet } from 'react-router'
+import Header from '../components/Header'
 
-function App() {
+function AppLayout() {
   return (
     <div className="min-h-screen bg-linear-to-br from-background to-secondary/10">
       {/* Header */}
@@ -13,16 +12,10 @@ function App() {
       {/* Header */}
 
       <div className="container mx-auto px-4 py-8">
-        {/* TabSelector */}
-        <TabSelector />
-        {/* TabSelector */}
-
-        <div className="mt-8">
-          <CharactersView />
-        </div>
+        <Outlet />
       </div>
     </div>
   )
 }
 
-export default App
+export default AppLayout
