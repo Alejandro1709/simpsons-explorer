@@ -28,7 +28,7 @@ function CharacterCard({ character }: Props) {
         <img
           src={`https://cdn.thesimpsonsapi.com/500${character.portrait_path}`}
           alt={character.name}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain"
         />
       </div>
 

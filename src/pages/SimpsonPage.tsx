@@ -33,6 +33,29 @@ function SimpsonPage() {
               Fav
             </button>
           </header>
+
+          <div className="space-y-4">
+            <div className="relative h-102.5 overflow-hidden bg-muted rounded-lg">
+              <img
+                src={`https://cdn.thesimpsonsapi.com/1280${simpson.portrait_path}`}
+                alt={simpson.name}
+                className="w-full h-full object-contain"
+              />
+            </div>
+
+            <h2 className="text-4xl font-medium">{simpson.name}</h2>
+
+            <div className="flex gap-2 mt-3 flex-wrap">
+              <span
+                className={`text-xs font-semibold px-2 py-1 rounded bg-green-400`}
+              >
+                Status: {simpson.status}
+              </span>
+              <span className="text-xs font-semibold px-2 py-1 rounded bg-accent text-accent-foreground">
+                {simpson.occupation}
+              </span>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="bg-linear-to-br from-background via-background to-primary/5 flex items-center justify-center p-4">
