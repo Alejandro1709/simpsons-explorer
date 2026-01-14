@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import type { Episode } from '../../types/episode.interface'
 import EpisodeCard from '../episodes/EpisodeCard'
+import EpisodeFilters from '../filters/EpisodeFilters'
 import Loader from '../Loader'
 import Pagination from '../Pagination'
 
@@ -10,11 +12,16 @@ interface Props {
 }
 
 function EpisodesView({ episodes, isLoading, totalPages }: Props) {
+  const [filters, setFilters] = useState({
+    season: '',
+  })
+
   return (
     <div className="space-y-6">
       {/* Filters */}
-      Filters
+      <EpisodeFilters filters={filters} onFilterChange={setFilters} />
       {/* Filters */}
+
       {/* Loader */}
       {isLoading && <Loader />}
       {/* Loader */}
