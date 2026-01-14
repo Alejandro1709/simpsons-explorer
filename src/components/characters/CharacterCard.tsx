@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router'
 import type { Simpson } from '../../types/simpson.interface'
 
 interface Props {
@@ -12,8 +13,17 @@ function CharacterCard({ character }: Props) {
       unknown: 'bg-gray-100 text-gray-800',
     }[character.status] || 'bg-gray-100 text-gray-800'
 
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate(`/characters/${character.id}`)
+  }
+
   return (
-    <div className="bg-card rounded-lg overflow-hidden border-2 border-border hover:border-primary transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
+    <div
+      className="bg-card rounded-lg overflow-hidden border-2 border-border hover:border-primary transition-all duration-200 hover:shadow-lg hover:-translate-y-1 cursor-pointer"
+      onClick={handleClick}
+    >
       <div className="relative h-48 overflow-hidden bg-muted">
         <img
           src={`https://cdn.thesimpsonsapi.com/500${character.portrait_path}`}
