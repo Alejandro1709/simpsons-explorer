@@ -8,10 +8,10 @@ interface Props {
   >
 }
 
-function Tab({ tab, activeTab, onTabChange }: Props) {
+function Tab({ tab, activeTab }: Props) {
   return (
     <button
-      onClick={() => onTabChange(tab.id)}
+      onClick={() => {}}
       className={`px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
         activeTab === tab.id
           ? 'bg-primary text-primary-foreground shadow-lg scale-105'
