@@ -3,7 +3,9 @@ import TabSelector from '../components/TabSelector'
 import CharactersView from '../components/views/CharactersView'
 
 function IndexPage() {
-  const [activeTab, setActiveTab] = useState<string>('characters')
+  const [activeTab, setActiveTab] = useState<
+    'characters' | 'episodes' | 'locations'
+  >('characters')
 
   return (
     <>

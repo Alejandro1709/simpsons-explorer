@@ -3,7 +3,9 @@ import type { ITab } from '../data/tabs'
 interface Props {
   tab: ITab
   activeTab: string
-  onTabChange: (tab: string) => void
+  onTabChange: React.Dispatch<
+    React.SetStateAction<'characters' | 'episodes' | 'locations'>
+  >
 }
 
 function Tab({ tab, activeTab, onTabChange }: Props) {

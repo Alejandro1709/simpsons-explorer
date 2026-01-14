@@ -3,7 +3,9 @@ import Tab from './Tab'
 
 interface Props {
   activeTab: string
-  onTabChange: (tab: string) => void
+  onTabChange: React.Dispatch<
+    React.SetStateAction<'characters' | 'episodes' | 'locations'>
+  >
 }
 
 function TabSelector({ activeTab, onTabChange }: Props) {
