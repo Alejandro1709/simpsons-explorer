@@ -1,13 +1,19 @@
-import { useState } from 'react'
+import { useSearchParams } from 'react-router'
+import { useQuery } from '@tanstack/react-query'
 import TabSelector from '../components/TabSelector'
 import CharactersView from '../components/views/CharactersView'
 import { getSimpsonsByPage } from '../actions/get-simpsons-by-page.action'
-import { useQuery } from '@tanstack/react-query'
+import { useMemo } from 'react'
 
 function IndexPage() {
-  const [activeTab, setActiveTab] = useState<
-    'characters' | 'episodes' | 'locations'
-  >('characters')
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const activeTab = searchParams.get('tab') || 'characters'
+
+  const selectedTab = useMemo(() => {
+    const validTabs = ['characters', 'episodes', 'locations']
+    return validTabs.includes(activeTab) ? activeTab : 'characters'
+  }, [activeTab])
 
   const { data: simpsonsResponse, isLoading } = useQuery({
     queryKey: ['simpsons'],
@@ -18,7 +24,7 @@ function IndexPage() {
   return (
     <>
       {/* TabSelector */}
-      <TabSelector activeTab={activeTab} onTabChange={setActiveTab} />
+      <TabSelector activeTab={selectedTab} onTabChange={setSearchParams} />
       {/* TabSelector */}
 
       <div className="mt-8">
