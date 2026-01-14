@@ -1,8 +1,4 @@
-const tabs = [
-  { id: 'characters', label: '👥 Characters', icon: '👥' },
-  { id: 'episodes', label: '📺 Episodes', icon: '📺' },
-  { id: 'locations', label: '📍 Locations', icon: '📍' },
-]
+import tabs from '../data/tabs'
 
 function TabSelector() {
   return (
