@@ -1,20 +1,22 @@
-import { useMemo } from 'react'
+import { use, useMemo } from 'react'
 import { useSearchParams } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
+import { FavoriteSimpsonContext } from '../context/FavoriteSimpsonContext'
 import TabSelector from '../components/TabSelector'
 import CharactersView from '../components/views/CharactersView'
 import { getSimpsonsByPage } from '../actions/get-simpsons-by-page.action'
 import EpisodesView from '../components/views/EpisodesView'
 import { getEpisodesByPage } from '../actions/get-episodes-by-page.action'
+import FavoritesView from '../components/views/FavoritesView'
 
 function IndexPage() {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const activeTab = searchParams.get('tab') || 'characters'
+  const activeTab = searchParams.get('tab') ?? 'characters'
   const page = searchParams.get('page') ?? '1'
 
   const selectedTab = useMemo(() => {
-    const validTabs = ['characters', 'episodes', 'locations']
+    const validTabs = ['characters', 'episodes', 'locations', 'favorites']
     return validTabs.includes(activeTab) ? activeTab : 'characters'
   }, [activeTab])
 
@@ -29,6 +31,8 @@ function IndexPage() {
     queryFn: () => getEpisodesByPage(+page),
     staleTime: 1000 * 60 * 5,
   })
+
+  const { favorites } = use(FavoriteSimpsonContext)
 
   return (
     <>
@@ -51,6 +55,7 @@ function IndexPage() {
             totalPages={episodesResponse?.count || 1}
           />
         )}
+        {activeTab === 'favorites' && <FavoritesView characters={favorites} />}
       </div>
     </>
   )

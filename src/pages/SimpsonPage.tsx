@@ -1,12 +1,17 @@
+import { use } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
 import { getSimpson } from '../actions/get-simpson.action'
 import Loader from '../components/Loader'
+import { FavoriteSimpsonContext } from '../context/FavoriteSimpsonContext'
+import { BsHeart, BsHeartFill } from 'react-icons/bs'
 
 function SimpsonPage() {
   const { id = '' } = useParams()
 
   const navigate = useNavigate()
+
+  const { isFavorite, toggleFavorite } = use(FavoriteSimpsonContext)
 
   const { data: simpson, isLoading } = useQuery({
     queryKey: ['simpson', id],
@@ -29,8 +34,11 @@ function SimpsonPage() {
 
             <h2 className="text-3xl font-medium">{simpson.name}</h2>
 
-            <button className="px-3 py-2 rounded-lg font-semibold transition-all duration-200 bg-card text-foreground border-2 border-border hover:border-primary cursor-pointer">
-              Fav
+            <button
+              className="px-3 py-2 rounded-lg font-semibold transition-all duration-200 bg-card text-red-400 border-2 border-border hover:border-primary cursor-pointer"
+              onClick={() => toggleFavorite(simpson)}
+            >
+              {isFavorite(simpson) ? <BsHeartFill /> : <BsHeart />}
             </button>
           </header>
 
