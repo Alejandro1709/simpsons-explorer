@@ -9,7 +9,7 @@ function IndexPage() {
     'characters' | 'episodes' | 'locations'
   >('characters')
 
-  const { data } = useQuery({
+  const { data: simpsonsResponse, isLoading } = useQuery({
     queryKey: ['simpsons'],
     queryFn: getSimpsonsByPage,
     staleTime: 1000 * 60 * 5,
@@ -22,7 +22,12 @@ function IndexPage() {
       {/* TabSelector */}
 
       <div className="mt-8">
-        {activeTab === 'characters' && <CharactersView />}
+        {activeTab === 'characters' && (
+          <CharactersView
+            characters={simpsonsResponse?.results || []}
+            isLoading={isLoading}
+          />
+        )}
       </div>
     </>
   )
