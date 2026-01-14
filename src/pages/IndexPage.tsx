@@ -9,6 +9,7 @@ function IndexPage() {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const activeTab = searchParams.get('tab') || 'characters'
+  const page = searchParams.get('page') ?? '1'
 
   const selectedTab = useMemo(() => {
     const validTabs = ['characters', 'episodes', 'locations']
@@ -16,8 +17,8 @@ function IndexPage() {
   }, [activeTab])
 
   const { data: simpsonsResponse, isLoading } = useQuery({
-    queryKey: ['simpsons'],
-    queryFn: getSimpsonsByPage,
+    queryKey: ['simpsons', 'page', page],
+    queryFn: () => getSimpsonsByPage(+page),
     staleTime: 1000 * 60 * 5,
   })
 
@@ -32,6 +33,7 @@ function IndexPage() {
           <CharactersView
             characters={simpsonsResponse?.results || []}
             isLoading={isLoading}
+            totalPages={simpsonsResponse?.count || 1}
           />
         )}
       </div>
