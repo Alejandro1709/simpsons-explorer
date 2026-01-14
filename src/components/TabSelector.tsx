@@ -1,11 +1,10 @@
+import type { SetURLSearchParams } from 'react-router'
 import tabs from '../data/tabs'
 import Tab from './Tab'
 
 interface Props {
   activeTab: string
-  onTabChange: React.Dispatch<
-    React.SetStateAction<'characters' | 'episodes' | 'locations'>
-  >
+  onTabChange: SetURLSearchParams
 }
 
 function TabSelector({ activeTab, onTabChange }: Props) {
