@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router'
 import AppLayout from '../layouts/AppLayout'
 import IndexPage from '../pages/IndexPage'
+import NotFoundPage from '../pages/NotFoundPage'
 
 export const appRouter = createBrowserRouter([
   {
@@ -13,7 +14,7 @@ export const appRouter = createBrowserRouter([
       },
       {
         path: '*',
-        element: <h1>Not Found</h1>,
+        element: <NotFoundPage />,
       },
     ],
   },
