@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react'
 import CharacterCard from '../characters/CharacterCard'
 import CharacterFilters from '../filters/CharacterFilters'
 import Loader from '../Loader'
@@ -11,10 +12,30 @@ interface Props {
 }
 
 function CharactersView({ characters, isLoading, totalPages }: Props) {
+  const [filters, setFilters] = useState({
+    name: '',
+    gender: '',
+    status: '',
+  })
+
+  const filteredCharacters = useMemo(() => {
+    return characters.filter((c) => {
+      const matchesName = c.name
+        .toLowerCase()
+        .includes(filters.name.toLowerCase())
+
+      const matchesGender = !filters.gender || c.gender === filters.gender
+
+      const matchesStatus = !filters.status || c.status === filters.status
+
+      return matchesName && matchesGender && matchesStatus
+    })
+  }, [characters, filters])
+
   return (
     <div className="space-y-6">
       {/* Filters */}
-      <CharacterFilters />
+      <CharacterFilters filters={filters} onFiltersChange={setFilters} />
       {/* Filters */}
 
       {/* Loader */}
@@ -22,8 +43,8 @@ function CharactersView({ characters, isLoading, totalPages }: Props) {
       {/* Loader */}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {characters.length > 0 ? (
-          characters.map((character) => (
+        {filteredCharacters.length > 0 ? (
+          filteredCharacters.map((character) => (
             <CharacterCard key={character.id} character={character} />
           ))
         ) : (
